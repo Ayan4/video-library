@@ -10,11 +10,8 @@ import { FiHome } from "react-icons/fi";
 
 function NavbarBottom() {
   return (
-    <div className="py-1 px-5 font-poppins flex justify-between text-black-2 sticky bottom-0 z-20 w-full border-t border-white-1 bg-white flex">
-      <Link
-        className="px-1 flex flex-col justify-center items-center"
-        to="/history"
-      >
+    <div className="py-1 px-5 font-poppins flex justify-between text-black-2 fixed bottom-0 z-20 w-full border-t border-white-1 bg-white flex">
+      <Link className="px-1 flex flex-col justify-center items-center" to="/">
         <div>
           <FiHome className="text-3xl text-primary-red" />
         </div>
