@@ -6,7 +6,7 @@ import { VideoProvider } from "./context/videosContext";
 import { AuthProvider } from "./context/authContext";
 import { BrowserRouter as Router } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { ReactQueryDevtools } from "react-query/devtools";
+// import { ReactQueryDevtools } from "react-query/devtools";
 
 const queryClient = new QueryClient();
 
@@ -20,7 +20,7 @@ ReactDOM.render(
           </VideoProvider>
         </AuthProvider>
       </Router>
-      <ReactQueryDevtools />
+      {/* <ReactQueryDevtools /> */}
     </QueryClientProvider>
   </React.StrictMode>,
   document.getElementById("root")

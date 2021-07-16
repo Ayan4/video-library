@@ -1,18 +1,14 @@
 import React from "react";
-import ReactPlayer from "react-player";
-import "./ResponsivePlayer.css";
 
-const ResponsivePlayer = ({ url, thumbnail }) => {
+const ResponsivePlayer = ({ videoId }) => {
   return (
-    <div className="player-wrapper">
-      <ReactPlayer
-        className="react-player"
-        url={url}
-        width="100%"
-        height="100%"
-        controls={true}
-        light={thumbnail && true}
-      />
+    <div className="aspect-w-16 aspect-h-9 -z-2">
+      <iframe
+        src={`https://www.youtube.com/embed/${videoId}`}
+        title="YouTube video player"
+        frameBorder="0"
+        allowFullScreen
+      ></iframe>
     </div>
   );
 };
