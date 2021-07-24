@@ -14,6 +14,16 @@ export const AuthProvider = ({ children }) => {
     apiClient.defaults.headers.common["Authorization"] = `Bearer ${user.token}`;
   }
 
+  apiClient.interceptors.response.use(undefined, error => {
+    if (
+      error.response?.status === 401 ||
+      error.response?.data.message === "Unauthorized Access"
+    ) {
+      logout();
+    }
+    return Promise.reject(error);
+  });
+
   const {
     isLoading: signupLoading,
     isSuccess: isSignupSuccess,

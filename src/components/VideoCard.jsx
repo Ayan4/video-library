@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 import { FiLoader } from "react-icons/fi";
 import { FaPlay } from "react-icons/fa";
-import { useVideo } from "../../context/videosContext";
+import { useVideo } from "../context/videosContext";
 // import { useAuth } from "../../context/authContext";
 
 const VideoCard = () => {
-  const { state, isLoading, error } = useVideo();
-  console.log(state.videos);
+  const { videoState, isLoading, error } = useVideo();
+  // console.log(state.videos);
 
   if (error) {
     return <h1>An error has occured and pointed out by react query</h1>;
@@ -21,7 +21,7 @@ const VideoCard = () => {
       {isLoading && <FiLoader style={{ width: "5rem", height: "5rem" }} />}
 
       <div className="flex flex-col">
-        {state.videos?.map(item => {
+        {videoState.videos?.map(item => {
           return (
             <Link
               key={item._id}

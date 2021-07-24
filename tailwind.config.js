@@ -9,7 +9,8 @@ module.exports = {
         "white-1": "#E2E2E2",
         "white-2": "#c4c4c4",
         "gray-1": "#737373",
-        "primary-red": "#A51818"
+        "primary-red": "#A51818",
+        transparent: "transparent"
       },
       borderColor: theme => ({
         ...theme("colors"),
@@ -32,7 +33,10 @@ module.exports = {
     }
   },
   variants: {
-    extend: {}
+    extend: {
+      backgroundColor: ["active"],
+      opacity: ["active"]
+    }
   },
   plugins: [require("@tailwindcss/aspect-ratio")]
 };

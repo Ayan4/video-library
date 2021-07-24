@@ -6,15 +6,20 @@ import { fetchAllVideos } from "../Api/videosApi";
 const VideoContext = createContext();
 
 export const VideoProvider = ({ children }) => {
-  const [state, videoDispatch] = useReducer(videoReducer, initialState);
-  const { data, isLoading, error } = useQuery("videos", fetchAllVideos);
+  const [videoState, videoDispatch] = useReducer(videoReducer, initialState);
+  const { data, isLoading: allVideosLoading, error } = useQuery(
+    "videos",
+    fetchAllVideos
+  );
 
   useEffect(() => {
     videoDispatch({ type: "FETCH_VIDEOS", payload: data });
   }, [data]);
 
   return (
-    <VideoContext.Provider value={{ state, videoDispatch, isLoading, error }}>
+    <VideoContext.Provider
+      value={{ videoState, videoDispatch, allVideosLoading, error }}
+    >
       {children}
     </VideoContext.Provider>
   );

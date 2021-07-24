@@ -2,8 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
+import ScrollToTop from "./components/Utils/ScrollToTop";
 import { VideoProvider } from "./context/videosContext";
 import { AuthProvider } from "./context/authContext";
+import { PlaylistProvider } from "./context/playlistContext";
 import { BrowserRouter as Router } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 // import { ReactQueryDevtools } from "react-query/devtools";
@@ -15,9 +17,12 @@ ReactDOM.render(
     <QueryClientProvider client={queryClient}>
       <Router>
         <AuthProvider>
-          <VideoProvider>
-            <App />
-          </VideoProvider>
+          <PlaylistProvider>
+            <VideoProvider>
+              <ScrollToTop />
+              <App />
+            </VideoProvider>
+          </PlaylistProvider>
         </AuthProvider>
       </Router>
       {/* <ReactQueryDevtools /> */}

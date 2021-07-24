@@ -37,7 +37,7 @@ function NavbarBottom() {
       </Link>
       <Link
         className="px-1 flex flex-col justify-center items-center"
-        to="/history"
+        to="/likedvideos"
       >
         <div>
           <AiOutlineLike className="text-3xl" />
@@ -46,7 +46,7 @@ function NavbarBottom() {
       </Link>
       <Link
         className="px-1 flex flex-col justify-center items-center"
-        to="/history"
+        to="/watchlater"
       >
         <div className="mt-2">
           <AiOutlineClockCircle className="text-3xl" />
