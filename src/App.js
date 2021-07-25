@@ -1,12 +1,12 @@
 import { Route, Routes } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
-import VideoPage from "./routes/VideoPage/VideoPage";
+import VideoPage from "./routes/VideoPage";
 import Navbar from "./components/Navbar/Navbar";
 import Signup from "./routes/Auth/Signup";
 import Login from "./routes/Auth/Login";
 import Library from "./routes/Library/Library";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
-import Home from "./routes/Home/Home";
+import Home from "./routes/Home";
 import NavbarBottom from "./components/Navbar/NavbarBottom";
 import Playlist from "./routes/Library/Playlist";
 import LikedVideos from "./routes/Library/LikedVideos";
@@ -16,7 +16,7 @@ import History from "./routes/Library/History";
 function App() {
   return (
     <div className="App">
-      <Toaster position="bottom-center" reverseOrder={false} />
+      <Toaster position="top-center" reverseOrder={false} />
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />

@@ -5,21 +5,24 @@ import { BiDotsVerticalRounded } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import { deleteHistoryVideo } from "../../Api/videosApi";
 import { useMutation } from "react-query";
+import PageLoading from "../../components/Utils/PageLoading";
+import Loader from "react-loader-spinner";
 
 function History() {
   const { user } = useAuth();
   const { state, historyLoading, playlistDispatch } = usePlaylist();
 
-  const { mutate: deleteVideoMutate } = useMutation(deleteHistoryVideo, {
-    onSuccess: data => {
-      playlistDispatch({
-        type: "FETCH_HISTORY_VIDEOS",
-        payload: data?.history.videos
-      });
+  const { isLoading, mutate: deleteVideoMutate } = useMutation(
+    deleteHistoryVideo,
+    {
+      onSuccess: data => {
+        playlistDispatch({
+          type: "FETCH_HISTORY_VIDEOS",
+          payload: data?.history.videos
+        });
+      }
     }
-  });
-
-  // console.log(state);
+  );
 
   const deleteVideo = (e, videoId) => {
     e.preventDefault();
@@ -28,6 +31,7 @@ function History() {
 
   return (
     <div className="font-poppins h-screen">
+      {isLoading && <PageLoading />}
       <div className="px-5 py-4 border-b border-white-1 flex justify-between items-center">
         <div className="flex flex-col mb-1.5 border-l-4 border-primary pl-2.5">
           <h1 className="font-medium text-black-1 text-lg">History Videos</h1>
@@ -52,7 +56,15 @@ function History() {
       )}
 
       {historyLoading ? (
-        <h1 className="text-medium text-4xl">Loading......</h1>
+        <div className="relative py-28">
+          <Loader
+            type="TailSpin"
+            color="#A51818"
+            height={50}
+            width={50}
+            className="text-black absolute z-20 top-2/4 left-2/4 transform -translate-x-2/4 -translate-y-2/4"
+          />
+        </div>
       ) : (
         <div className="px-5">
           {state.history?.map(item => {

@@ -1,13 +1,13 @@
-import ResponsivePlayer from "../../components/ResponsivePlayer";
+import VideoPlayer from "../components/VideoPlayer";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { usePlaylist } from "../../context/playlistContext";
-import { useVideo } from "../../context/videosContext";
+import { usePlaylist } from "../context/playlistContext";
+import { useVideo } from "../context/videosContext";
 import { useMutation } from "react-query";
-import { useAuth } from "../../context/authContext";
-import { liked, watchLater, history } from "../../Api/videosApi";
+import { useAuth } from "../context/authContext";
+import { liked, watchLater, history } from "../Api/videosApi";
 import { HiChevronDown } from "react-icons/hi";
-import ComentSection from "../../components/CommentSection";
+import ComentSection from "../components/CommentSection";
 import toast from "react-hot-toast";
 import {
   AiOutlineLike,
@@ -15,7 +15,9 @@ import {
   AiOutlineShareAlt
 } from "react-icons/ai";
 import { RiPlayListAddFill } from "react-icons/ri";
-import Modal from "../../components/Modal";
+import Modal from "../components/Modal/PlaylistModal";
+import ShareModal from "../components/Modal/ShareModal";
+import PageLoading from "../components/Utils/PageLoading";
 
 const VideoPage = () => {
   const { videoID } = useParams();
@@ -27,6 +29,8 @@ const VideoPage = () => {
   const [watchLaterActive, setWatchLaterActive] = useState(false);
   const [video, setVideo] = useState("");
   const [openModal, setOpenModal] = useState(false);
+  const [openShareModal, setOpenShareModal] = useState(false);
+  const [pageLoading, setPageLoading] = useState(false);
 
   const { mutate: historyMutate } = useMutation(history, {
     onSuccess: data => {
@@ -92,20 +96,25 @@ const VideoPage = () => {
     }
   });
 
-  // if (error) return <h1>Error occured in fetching video</h1>;
-
-  if (allVideosLoading) return <h1>Content is loading</h1>;
+  if (allVideosLoading) return <PageLoading />;
 
   return (
     <div className="h-screen">
+      {pageLoading && <PageLoading />}
       <Modal
         openModal={openModal}
         setOpenModal={setOpenModal}
         videoID={videoID}
       />
 
+      <ShareModal
+        openShareModal={openShareModal}
+        setOpenShareModal={setOpenShareModal}
+        location={window.location.pathname}
+      />
+
       {/* Video */}
-      <ResponsivePlayer videoId={video?.videoId} />
+      <VideoPlayer videoId={video?.videoId} />
 
       {/* Video info */}
       <div className="px-5 py-5 border-b border-white-1">
@@ -168,7 +177,10 @@ const VideoPage = () => {
             <RiPlayListAddFill className="mr-1 w-3.5 xs:w-4 h-3.5 xs:h-4" />
             Save
           </button>
-          <button className="flex items-center ml-auto bg-white-1 px-2.5 py-1.5 rounded-2xl active:bg-white-2">
+          <button
+            onClick={() => setOpenShareModal(true)}
+            className="flex items-center ml-auto bg-white-1 px-2.5 py-1.5 rounded-2xl active:bg-white-2"
+          >
             <AiOutlineShareAlt className="w-4 xs:w-5 h-4 xs:h-5 text-black-2" />
           </button>
         </div>
@@ -189,7 +201,7 @@ const VideoPage = () => {
         </div>
       </div>
 
-      <ComentSection video={video} />
+      <ComentSection video={video} setPageLoading={setPageLoading} />
     </div>
   );
 };

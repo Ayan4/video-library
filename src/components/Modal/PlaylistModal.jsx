@@ -1,16 +1,18 @@
 import ReactModal from "react-modal";
-import { AiOutlinePlus } from "react-icons/ai";
+import { GoPlus } from "react-icons/go";
 import { IoCloseOutline } from "react-icons/io5";
 import { GrCheckbox, GrCheckboxSelected } from "react-icons/gr";
-import { CgSpinner } from "react-icons/cg";
+import { MdPlaylistAdd } from "react-icons/md";
+import Loader from "react-loader-spinner";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
-import { createPlaylist, addToPlaylist } from "../Api/videosApi";
-import { usePlaylist } from "../context/playlistContext";
+import { createPlaylist, addToPlaylist } from "../../Api/videosApi";
+import { usePlaylist } from "../../context/playlistContext";
+import toast from "react-hot-toast";
 
 ReactModal.setAppElement("#root");
 
-function Modal({ openModal, setOpenModal, videoID }) {
+function PlaylistModal({ openModal, setOpenModal, videoID }) {
   const { register, handleSubmit, reset } = useForm();
   const { state, playlistDispatch } = usePlaylist();
 
@@ -23,10 +25,11 @@ function Modal({ openModal, setOpenModal, videoID }) {
         type: "CREATE_PLAYLIST",
         payload: data.newPlaylist
       });
+      toast.success("Playlist created");
     }
   });
 
-  const { isLoading: playlistLoading, mutate: addMutate } = useMutation(
+  const { isLoading: addToPlaylistLoading, mutate: addMutate } = useMutation(
     addToPlaylist,
     {
       onSuccess: data => {
@@ -68,14 +71,23 @@ function Modal({ openModal, setOpenModal, videoID }) {
         isOpen={openModal}
         onRequestClose={() => setOpenModal(false)}
       >
-        {(playlistLoading || createPlaylistLoading) && (
+        {(addToPlaylistLoading || createPlaylistLoading) && (
           <div>
-            <div className="absolute bg-white opacity-50 inset-0"></div>
-            <CgSpinner className="text-black absolute z-20 text-5xl inset-1/2 transform -translate-x-2/4 -translate-y-1/2" />
+            <div className="absolute bg-white bg-opacity-50 inset-0"></div>
+            <Loader
+              type="TailSpin"
+              color="black"
+              height={50}
+              width={50}
+              className="text-black absolute z-20 top-2/4 left-2/4 transform -translate-x-2/4 -translate-y-2/4"
+            />
           </div>
         )}
         <div className="flex justify-between items-center text-black-1 py-2 px-2 border-b border-white-1">
-          <p className="text-lg">Playlists</p>
+          <p className="text-lg flex items-center">
+            <MdPlaylistAdd className="text-primary-red text-3xl mr-1.5" />
+            Playlists
+          </p>
           <IoCloseOutline
             onClick={() => setOpenModal(false)}
             className="text-2xl cursor-pointer"
@@ -91,7 +103,7 @@ function Modal({ openModal, setOpenModal, videoID }) {
                   "flex justify-between items-center py-1.5 px-2 mb-2 w-full rounded-sm bg-gray-200 cursor-pointer"
                 }
                 key={item._id}
-                disabled={playlistLoading && true}
+                disabled={addToPlaylistLoading && true}
               >
                 <p>{item.name}</p>
                 {isVideosPresent(item.videos)}
@@ -101,8 +113,10 @@ function Modal({ openModal, setOpenModal, videoID }) {
         </div>
 
         <div className="border-b border-white-1 flex justify-between items-center text-black-1 px-2 py-2">
-          <p className="text-lg">Create new playlist</p>
-          <AiOutlinePlus className="text-xl" />
+          <p className="text-lg flex items-center">
+            <GoPlus className="text-2xl text-primary-red mr-1.5" />
+            Create new playlist
+          </p>
         </div>
 
         <form
@@ -128,4 +142,4 @@ function Modal({ openModal, setOpenModal, videoID }) {
   );
 }
 
-export default Modal;
+export default PlaylistModal;

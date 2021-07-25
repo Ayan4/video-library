@@ -22,7 +22,15 @@ module.exports = {
       backgroundImage: theme => ({
         "playlist-banner":
           "url(https://images.unsplash.com/photo-1616356601595-8af46b090cc4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80)"
-      })
+      }),
+      keyframes: {
+        spinner: {
+          "0%, 100%": { transform: "rotate(360deg)" }
+        }
+      },
+      animation: {
+        spinner: "spinner 1s ease infinite"
+      }
     },
     zIndex: {
       "-1": "-1",

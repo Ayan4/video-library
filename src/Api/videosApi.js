@@ -2,9 +2,6 @@ import axios from "axios";
 
 export const apiClient = axios.create({
   baseURL: "https://video-library-backend-1.herokuapp.com"
-  // headers: {
-  //   "Access-Control-Allow-Origin": "*"
-  // }
 });
 
 // User authentication
@@ -125,14 +122,12 @@ export const deleteHistoryVideo = async videoId => {
 
 export const deletePlaylist = async playlistId => {
   const response = await apiClient.delete(`playlist/${playlistId}`);
-  console.log(response);
   return response.data;
 };
 
 export const deletePlaylistVideo = async data => {
   const playlistId = data.playlistId;
   const videoId = data.videoId;
-  // console.log(playlistId, videoId);
   const response = await apiClient.delete(`playlist/${playlistId}/${videoId}`);
   return response.data;
 };

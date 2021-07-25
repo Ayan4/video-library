@@ -1,8 +1,8 @@
 import React from "react";
-import Categories from "../../components/Categories";
-import Banners from "../../components/Banners";
-import VideoCard from "../../components/VideoCard";
-import { useAuth } from "../../context/authContext";
+import Categories from "../components/Categories";
+import Banners from "../components/Banners";
+import VideoCard from "../components/VideoCard";
+import { useAuth } from "../context/authContext";
 
 function Home() {
   const { user } = useAuth();
