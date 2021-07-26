@@ -18,7 +18,7 @@ function ShareModal({ openShareModal, setOpenShareModal, location }) {
     <div>
       <ReactModal
         style={{ overlay: { backgroundColor: "rgba(0,0,0,0.5)" } }}
-        className="border border-white-1 bg-white font-poppins rounded relative inset-1/2 transform -translate-x-2/4 -translate-y-1/2 w-3/4"
+        className="border border-white-1 bg-white font-poppins rounded-lg relative inset-1/2 transform -translate-x-2/4 -translate-y-1/2 w-3/4"
         isOpen={openShareModal}
         onRequestClose={() => setOpenShareModal(false)}
       >
@@ -30,7 +30,7 @@ function ShareModal({ openShareModal, setOpenShareModal, location }) {
           <CopyToClipboard text={locationUrl}>
             <div
               onClick={() => toast.success("Copied to clipboard")}
-              className="flex items-center px-3 py-1 m-3 bg-gray-200 rounded-sm text-left cursor-pointer hover:opacity-80"
+              className="flex items-center px-3 py-1 m-2.5 bg-gray-200 rounded text-left cursor-pointer hover:opacity-80"
             >
               <div>
                 <MdContentCopy className="text-2xl text-gray-1 mr-2.5" />

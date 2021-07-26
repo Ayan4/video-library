@@ -1,5 +1,5 @@
 import VideoPlayer from "../components/VideoPlayer";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { usePlaylist } from "../context/playlistContext";
 import { useVideo } from "../context/videosContext";
@@ -15,21 +15,22 @@ import {
   AiOutlineShareAlt
 } from "react-icons/ai";
 import { RiPlayListAddFill } from "react-icons/ri";
-import Modal from "../components/Modal/PlaylistModal";
+import PlaylistModal from "../components/Modal/PlaylistModal";
 import ShareModal from "../components/Modal/ShareModal";
+import LoginModal from "../components/Modal/LoginModal";
 import PageLoading from "../components/Utils/PageLoading";
 
 const VideoPage = () => {
   const { videoID } = useParams();
   const { user } = useAuth();
-  const navigate = useNavigate();
   const { state, playlistDispatch } = usePlaylist();
   const { videoState, allVideosLoading } = useVideo();
   const [likeActive, setLikeActive] = useState(false);
   const [watchLaterActive, setWatchLaterActive] = useState(false);
   const [video, setVideo] = useState("");
-  const [openModal, setOpenModal] = useState(false);
+  const [openPlaylistModal, setOpenPlaylistModal] = useState(false);
   const [openShareModal, setOpenShareModal] = useState(false);
+  const [openLoginModal, setOpenLoginModal] = useState(false);
   const [pageLoading, setPageLoading] = useState(false);
 
   const { mutate: historyMutate } = useMutation(history, {
@@ -101,9 +102,9 @@ const VideoPage = () => {
   return (
     <div className="h-screen">
       {pageLoading && <PageLoading />}
-      <Modal
-        openModal={openModal}
-        setOpenModal={setOpenModal}
+      <PlaylistModal
+        openModal={openPlaylistModal}
+        setOpenModal={setOpenPlaylistModal}
         videoID={videoID}
       />
 
@@ -112,6 +113,8 @@ const VideoPage = () => {
         setOpenShareModal={setOpenShareModal}
         location={window.location.pathname}
       />
+
+      <LoginModal openModal={openLoginModal} setOpenModal={setOpenLoginModal} />
 
       {/* Video */}
       <VideoPlayer videoId={video?.videoId} />
@@ -140,7 +143,7 @@ const VideoPage = () => {
                 likeMutate(video?._id);
                 setLikeActive(!likeActive);
               } else {
-                navigate("/login");
+                setOpenLoginModal(true);
               }
             }}
             className={`flex items-center tracking-tight font-poppins bg-white-1 px-2.5 py-1.5 rounded-3xl ${
@@ -158,7 +161,7 @@ const VideoPage = () => {
                 watchLaterMutate(video?._id);
                 setWatchLaterActive(!watchLaterActive);
               } else {
-                navigate("/login");
+                setOpenLoginModal(true);
               }
             }}
             className={`flex items-center tracking-tight font-poppins bg-white-1 px-2.5 py-1.5 rounded-3xl ${
@@ -171,7 +174,13 @@ const VideoPage = () => {
             Watch Later
           </button>
           <button
-            onClick={() => setOpenModal(true)}
+            onClick={() => {
+              if (user) {
+                setOpenPlaylistModal(true);
+              } else {
+                setOpenLoginModal(true);
+              }
+            }}
             className="flex items-center tracking-tight font-poppins bg-white-1 px-2.5 py-1.5 rounded-3xl text-black-2 text-xs xs:text-sm mr-1 xs:mr-2 active:bg-white-2"
           >
             <RiPlayListAddFill className="mr-1 w-3.5 xs:w-4 h-3.5 xs:h-4" />
@@ -201,7 +210,11 @@ const VideoPage = () => {
         </div>
       </div>
 
-      <ComentSection video={video} setPageLoading={setPageLoading} />
+      <ComentSection
+        video={video}
+        setPageLoading={setPageLoading}
+        setOpenLoginModal={setOpenLoginModal}
+      />
     </div>
   );
 };

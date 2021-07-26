@@ -1,0 +1,44 @@
+import { useEffect, useState, useRef } from "react";
+import { BiDotsVerticalRounded } from "react-icons/bi";
+import { BiTrash } from "react-icons/bi";
+
+function DeleteHandler({ handleDelete }) {
+  const [open, setOpen] = useState(false);
+  const deleteRef = useRef(null);
+
+  useEffect(() => {
+    const handleDropdown = e => {
+      if (!deleteRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleDropdown);
+    return () => document.removeEventListener("mousedown", handleDropdown);
+  });
+
+  return (
+    <div
+      onClick={e => {
+        e.preventDefault();
+        setOpen(!open);
+      }}
+      ref={deleteRef}
+      className="relative ml-auto font-poppins"
+    >
+      <div className="rounded-full p-0.5 cursor-pointer hover:bg-white-1">
+        <BiDotsVerticalRounded className=" h-4 w-4 text-black-2" />
+      </div>
+      {open && (
+        <div
+          className="bg-white-1 flex items-center text-gray-1 mt-1 px-1 py-1 border border-white-2 absolute right-0 cursor-pointer rounded hover:bg-opacity-70"
+          onClick={handleDelete}
+        >
+          <BiTrash className="text-lg mr-1 mb-0.5" />
+          <p className="text-sm">Delete</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default DeleteHandler;

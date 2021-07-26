@@ -67,7 +67,7 @@ function PlaylistModal({ openModal, setOpenModal, videoID }) {
     <div>
       <ReactModal
         style={{ overlay: { backgroundColor: "rgba(0,0,0,0.5)" } }}
-        className="border border-white-1 bg-white font-poppins rounded relative inset-1/2 transform -translate-x-2/4 -translate-y-1/2 w-3/4"
+        className="border border-white-1 bg-white font-poppins rounded-lg relative inset-1/2 transform -translate-x-2/4 -translate-y-1/2 w-3/4"
         isOpen={openModal}
         onRequestClose={() => setOpenModal(false)}
       >
@@ -133,7 +133,7 @@ function PlaylistModal({ openModal, setOpenModal, videoID }) {
           />
           <input
             value="Create"
-            className="w-full py-2 bg-primary-red text-white rounded-sm cursor-pointer hover:opacity-90"
+            className="w-full py-2 bg-primary-red text-white rounded cursor-pointer hover:opacity-90"
             type="submit"
           />
         </form>

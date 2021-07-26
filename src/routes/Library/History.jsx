@@ -1,12 +1,12 @@
 import { useAuth } from "../../context/authContext";
 import { AiOutlineHistory } from "react-icons/ai";
 import { usePlaylist } from "../../context/playlistContext";
-import { BiDotsVerticalRounded } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import { deleteHistoryVideo } from "../../Api/videosApi";
 import { useMutation } from "react-query";
 import PageLoading from "../../components/Utils/PageLoading";
 import Loader from "react-loader-spinner";
+import DeleteHandler from "../../components/Utils/DeleteHandler";
 
 function History() {
   const { user } = useAuth();
@@ -87,23 +87,7 @@ function History() {
                     {item.channelName}
                   </p>
                 </div>
-                <div
-                  // onClick={e => e.preventDefault()}
-                  className="ml-auto relative rounded-full hover:bg-white-1"
-                >
-                  <BiDotsVerticalRounded className=" h-5 w-5 text-black-2" />
-                  <select
-                    onClick={e => e.preventDefault()}
-                    className="w-5 text-transparent bg-transparent h-5 absolute top-0 left-0 cursor-pointer"
-                  >
-                    <option
-                      className="text-sm font-poppins py-16 cursor-pointer"
-                      onClick={e => deleteVideo(e, item._id)}
-                    >
-                      Delete
-                    </option>
-                  </select>
-                </div>
+                <DeleteHandler handleDelete={e => deleteVideo(e, item._id)} />
               </Link>
             );
           })}

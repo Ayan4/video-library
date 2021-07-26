@@ -1,5 +1,4 @@
 import { useRef } from "react";
-import { BiDotsVerticalRounded } from "react-icons/bi";
 import { AiOutlineSend } from "react-icons/ai";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
@@ -8,8 +7,9 @@ import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
 import { useVideo } from "../context/videosContext";
 import toast from "react-hot-toast";
+import DeleteHandler from "./Utils/DeleteHandler";
 
-function CommentSection({ video, setPageLoading }) {
+function CommentSection({ video, setPageLoading, setOpenLoginModal }) {
   const { user } = useAuth();
   const { videoDispatch } = useVideo();
   const navigate = useNavigate();
@@ -21,10 +21,7 @@ function CommentSection({ video, setPageLoading }) {
     commentEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const {
-    // isLoading: postCommentLoading,
-    mutate: postCommentMutate
-  } = useMutation(postComment, {
+  const { mutate: postCommentMutate } = useMutation(postComment, {
     onSuccess: data => {
       videoDispatch({ type: "FETCH_VIDEOS", payload: data.allVideos });
       toast.success("Comment Added");
@@ -40,8 +37,6 @@ function CommentSection({ video, setPageLoading }) {
       setPageLoading(false);
     }
   });
-
-  // console.log(deleteLoading);
 
   const handleDelete = commentId => {
     if (user) {
@@ -70,11 +65,9 @@ function CommentSection({ video, setPageLoading }) {
       setPageLoading(true);
       postCommentMutate(commentData);
     } else {
-      navigate("/login");
+      setOpenLoginModal(true);
     }
   };
-
-  // console.log(video.comments);
 
   return (
     <div>
@@ -113,7 +106,7 @@ function CommentSection({ video, setPageLoading }) {
         </div>
       </div>
 
-      <div className="font-poppins mb-16">
+      <div className="font-poppins mb-20">
         {video?.comments?.map(item => {
           return (
             <div
@@ -135,17 +128,7 @@ function CommentSection({ video, setPageLoading }) {
 
               {/* Could use userID here instead of name */}
               {item.name === user?.name && (
-                <div className="ml-auto relative z-0 rounded-full hover:bg-white-1">
-                  <BiDotsVerticalRounded className=" h-4 w-4 text-black-2" />
-                  <select className="w-3.5 text-transparent bg-transparent h-4 absolute z-0 top-0 left-0 cursor-pointer">
-                    <option
-                      className="text-sm font-poppins py-16 cursor-pointer hover:bg-red-500"
-                      onClick={() => handleDelete(item._id)}
-                    >
-                      Delete
-                    </option>
-                  </select>
-                </div>
+                <DeleteHandler handleDelete={() => handleDelete(item._id)} />
               )}
             </div>
           );
