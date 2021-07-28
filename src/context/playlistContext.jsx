@@ -20,35 +20,48 @@ export const PlaylistProvider = ({ children }) => {
 
   const {
     data: playlistData,
-    isLoading: playlistLoading
-    // error: playlistError
+    isLoading: playlistLoading,
+    refetch: playlistRefetch
   } = useQuery("playlists", () => {
     return user && fetchPlaylists();
   });
 
   const {
     data: likedVideosData,
-    isLoading: likedVideosLoading
-    // error: likedVideosError
+    isLoading: likedVideosLoading,
+    refetch: likedVideosRefetch
   } = useQuery("liked", () => {
     return user && fetchLikedVideos();
   });
 
   const {
     data: watchLaterData,
-    isLoading: watchLaterLoading
-    // error: watchLaterError
+    isLoading: watchLaterLoading,
+    refetch: watchLaterRefetch
   } = useQuery("watch later", () => {
     return user && fetchWatchLaterVideos();
   });
 
   const {
     data: historyData,
-    isLoading: historyLoading
-    // error: watchLaterError
+    isLoading: historyLoading,
+    refetch: historyRefetch
   } = useQuery("history", () => {
     return user && fetchHistoryVideos();
   });
+
+  useEffect(() => {
+    playlistRefetch();
+    likedVideosRefetch();
+    watchLaterRefetch();
+    historyRefetch();
+  }, [
+    user,
+    playlistRefetch,
+    likedVideosRefetch,
+    watchLaterRefetch,
+    historyRefetch
+  ]);
 
   useEffect(() => {
     playlistDispatch({

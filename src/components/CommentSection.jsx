@@ -100,7 +100,7 @@ function CommentSection({ video, setPageLoading, setOpenLoginModal }) {
               {...register("comment", { required: true })}
             />
             <button>
-              <AiOutlineSend className="w-6 h-6 text-primary-red" />
+              <AiOutlineSend className="text-2xl text-primary-red transition-all lg:hover:text-red-500" />
             </button>
           </form>
         </div>

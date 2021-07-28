@@ -24,6 +24,10 @@ export const AuthProvider = ({ children }) => {
     return Promise.reject(error);
   });
 
+  // useEffect(() => {
+  //   console.log("auth useEffect ran");
+  // }, [user]);
+
   const {
     isLoading: signupLoading,
     isSuccess: isSignupSuccess,
@@ -52,6 +56,7 @@ export const AuthProvider = ({ children }) => {
     localStorage?.removeItem("user");
     setUser(null);
     delete apiClient.defaults.headers.common["Authorization"];
+    navigate("/");
   };
 
   return (

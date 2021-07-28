@@ -18,7 +18,7 @@ function ShareModal({ openShareModal, setOpenShareModal, location }) {
     <div>
       <ReactModal
         style={{ overlay: { backgroundColor: "rgba(0,0,0,0.5)" } }}
-        className="border border-white-1 bg-white font-poppins rounded-lg relative inset-1/2 transform -translate-x-2/4 -translate-y-1/2 w-3/4"
+        className="border border-white-1 max-w-md bg-white font-poppins rounded-lg relative inset-1/2 transform -translate-x-2/4 -translate-y-1/2 w-3/4"
         isOpen={openShareModal}
         onRequestClose={() => setOpenShareModal(false)}
       >

@@ -12,10 +12,11 @@ import Playlist from "./routes/Library/Playlist";
 import LikedVideos from "./routes/Library/LikedVideos";
 import WatchLaterVideos from "./routes/Library/WatchLaterVideos";
 import History from "./routes/Library/History";
+import Profile from "./routes/Auth/Profile";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App 3xl:border-r 3xl:border-l">
       <Toaster position="top-center" reverseOrder={false} />
       <Navbar />
       <Routes>
@@ -28,6 +29,7 @@ function App() {
         <Route path="/watchlater" element={<WatchLaterVideos />} />
         <Route path="/history" element={<History />} />
         <PrivateRoute path="/playlist/:playlistId" element={<Playlist />} />
+        <PrivateRoute path="/profile" element={<Profile />} />
       </Routes>
       <NavbarBottom />
     </div>

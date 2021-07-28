@@ -1,8 +1,9 @@
 export const initialState = {
   playlists: [],
   liked: [],
-  watchLater: null,
-  history: null
+  watchLater: [],
+  history: [],
+  refetchPlaylists: null
 };
 
 export const playlistReducer = (state, action) => {

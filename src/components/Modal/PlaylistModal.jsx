@@ -67,7 +67,7 @@ function PlaylistModal({ openModal, setOpenModal, videoID }) {
     <div>
       <ReactModal
         style={{ overlay: { backgroundColor: "rgba(0,0,0,0.5)" } }}
-        className="border border-white-1 bg-white font-poppins rounded-lg relative inset-1/2 transform -translate-x-2/4 -translate-y-1/2 w-3/4"
+        className="border border-white-1 max-w-sm bg-white font-poppins rounded-lg relative inset-1/2 transform -translate-x-2/4 -translate-y-1/2 w-3/4"
         isOpen={openModal}
         onRequestClose={() => setOpenModal(false)}
       >
@@ -94,7 +94,7 @@ function PlaylistModal({ openModal, setOpenModal, videoID }) {
           />
         </div>
 
-        <div className="px-2 py-2 border-b border-white-1">
+        <div className="px-2 py-2 border-b border-white-1 max-h-40 lg:max-h-64 overflow-scroll overflow-x-hidden">
           {state.playlists?.map(item => {
             return (
               <button

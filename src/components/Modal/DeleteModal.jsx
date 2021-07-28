@@ -13,7 +13,7 @@ function DeleteModal({
     <div>
       <ReactModal
         style={{ overlay: { backgroundColor: "rgba(0,0,0,0.5)" } }}
-        className="border-white-1 bg-white font-poppins rounded-lg relative inset-1/2 transform -translate-x-2/4 -translate-y-1/2 w-3/4"
+        className="border-white-1 bg-white max-w-sm font-poppins rounded-lg relative inset-1/2 transform -translate-x-2/4 -translate-y-1/2 w-3/4"
         isOpen={openModal}
         onRequestClose={() => setOpenModal(false)}
       >
