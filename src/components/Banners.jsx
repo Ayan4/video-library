@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { RiPlayListAddFill } from "react-icons/ri";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation, Pagination, A11y, Autoplay } from "swiper";
+import { RiCompass2Line } from "react-icons/ri";
 import "swiper/swiper.scss";
 import "swiper/components/navigation/navigation.scss";
 import "swiper/components/pagination/pagination.scss";
@@ -45,9 +46,10 @@ function Banners() {
                         theme ? "bg-opacity-50" : "bg-opacity-50"
                       }`}
                     >
-                      <p className="text-white absolute top-2/4 left-2/4 transform -translate-x-2/4 -translate-y-2/4 font-mont text-4xl">
-                        {item.category}
-                      </p>
+                      <div className="absolute top-2/4 left-2/4 transform -translate-x-2/4 -translate-y-2/4 text-white font-mont text-4xl flex items-center">
+                        <RiCompass2Line className="mr-1.5" />
+                        <p className="">{item.category}</p>
+                      </div>
                     </div>
                     <img
                       className="rounded-xl h-52 lg:h-64 w-full"

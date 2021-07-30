@@ -31,6 +31,8 @@ function Categories() {
           className={`text-sm ${
             theme && !queryParam
               ? "bg-white-1 text-black"
+              : !queryParam
+              ? "bg-dark-bor text-white-1"
               : theme
               ? "bg-dark-bor text-white-1 hover:bg-opacity-70"
               : "bg-white-1 text-black-2 hover:bg-white-2"
@@ -52,6 +54,8 @@ function Categories() {
               ${
                 theme && queryParam === item.category
                   ? "bg-white-1 text-black"
+                  : queryParam === item.category
+                  ? "bg-dark-bor text-white-1"
                   : theme
                   ? "bg-dark-bor text-white-1 hover:bg-opacity-70"
                   : "bg-white-1 text-black-2 hover:bg-white-2"
