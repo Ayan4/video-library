@@ -23,6 +23,11 @@ export const fetchAllVideos = async () => {
   return response.data.videos;
 };
 
+export const fetchCategories = async () => {
+  const response = await apiClient.get("/category");
+  return response.data.category;
+};
+
 export const fetchVideo = async videoId => {
   const response = await apiClient.get(`/videos/${videoId}`);
   return response.data.video;
@@ -81,16 +86,6 @@ export const postComment = async commentData => {
   return response.data;
 };
 
-export const deleteComment = async commentData => {
-  const videoId = commentData.videoId;
-  const commentId = commentData.commentId;
-
-  const response = await apiClient.delete(
-    `videos/comment/${videoId}/${commentId}`
-  );
-  return response.data;
-};
-
 export const createPlaylist = async playlistName => {
   const response = await apiClient.post("playlist", playlistName);
   return response.data;
@@ -129,5 +124,22 @@ export const deletePlaylistVideo = async data => {
   const playlistId = data.playlistId;
   const videoId = data.videoId;
   const response = await apiClient.delete(`playlist/${playlistId}/${videoId}`);
+  return response.data;
+};
+
+export const deleteComment = async commentData => {
+  const videoId = commentData.videoId;
+  const commentId = commentData.commentId;
+  const isAdmin = { isAdmin: commentData.isAdmin };
+
+  let response;
+  if (isAdmin.isAdmin === true) {
+    response = await apiClient.post(
+      `videos/comment/${videoId}/${commentId}`,
+      isAdmin
+    );
+  } else {
+    response = await apiClient.post(`videos/comment/${videoId}/${commentId}`);
+  }
   return response.data;
 };

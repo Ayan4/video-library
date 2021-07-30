@@ -1,7 +1,7 @@
 import { createContext, useContext, useReducer, useEffect } from "react";
 import { initialState, videoReducer } from "../context/reducer/videoReducer";
 import { useQuery } from "react-query";
-import { fetchAllVideos } from "../Api/videosApi";
+import { fetchAllVideos, fetchCategories } from "../Api/videosApi";
 
 const VideoContext = createContext();
 
@@ -12,13 +12,27 @@ export const VideoProvider = ({ children }) => {
     fetchAllVideos
   );
 
+  const {
+    data: categoryData,
+    isLoading: categoryLoading,
+    error: categoryError
+  } = useQuery("category", fetchCategories);
+
   useEffect(() => {
     videoDispatch({ type: "FETCH_VIDEOS", payload: data });
-  }, [data]);
+    videoDispatch({ type: "FETCH_CATEGORY", payload: categoryData });
+  }, [data, categoryData]);
 
   return (
     <VideoContext.Provider
-      value={{ videoState, videoDispatch, allVideosLoading, error }}
+      value={{
+        videoState,
+        videoDispatch,
+        allVideosLoading,
+        categoryLoading,
+        error,
+        categoryError
+      }}
     >
       {children}
     </VideoContext.Provider>

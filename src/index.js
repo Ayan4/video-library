@@ -8,6 +8,7 @@ import { AuthProvider } from "./context/authContext";
 import { PlaylistProvider } from "./context/playlistContext";
 import { BrowserRouter as Router } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { ThemeProvider } from "./context/themeContext";
 // import { ReactQueryDevtools } from "react-query/devtools";
 
 const queryClient = new QueryClient();
@@ -19,8 +20,10 @@ ReactDOM.render(
         <AuthProvider>
           <PlaylistProvider>
             <VideoProvider>
-              <ScrollToTop />
-              <App />
+              <ThemeProvider>
+                <ScrollToTop />
+                <App />
+              </ThemeProvider>
             </VideoProvider>
           </PlaylistProvider>
         </AuthProvider>

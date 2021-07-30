@@ -1,9 +1,11 @@
 import { useEffect, useState, useRef } from "react";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { BiTrash } from "react-icons/bi";
+import { useTheme } from "../../context/themeContext";
 
 function DeleteHandler({ handleDelete }) {
   const [open, setOpen] = useState(false);
+  const { theme } = useTheme();
   const deleteRef = useRef(null);
 
   useEffect(() => {
@@ -25,8 +27,16 @@ function DeleteHandler({ handleDelete }) {
       ref={deleteRef}
       className="relative ml-auto font-poppins"
     >
-      <div className="rounded-full p-0.5 cursor-pointer hover:bg-white-1 lg:hover:bg-white">
-        <BiDotsVerticalRounded className="text-lg text-black-2" />
+      <div
+        className={`rounded-full p-0.5 cursor-pointer ${
+          theme
+            ? "hover:bg-dark-bor lg:hover:bg-dark-bor"
+            : "hover:bg-white-1 lg:hover:bg-white-2"
+        }`}
+      >
+        <BiDotsVerticalRounded
+          className={`text-lg ${theme ? "text-white-2" : "text-black-2"}`}
+        />
       </div>
       {open && (
         <div

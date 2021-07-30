@@ -1,5 +1,6 @@
 export const initialState = {
-  videos: []
+  videos: [],
+  category: []
 };
 
 export const videoReducer = (state, action) => {
@@ -8,6 +9,12 @@ export const videoReducer = (state, action) => {
       return {
         ...state,
         videos: action.payload
+      };
+
+    case "FETCH_CATEGORY":
+      return {
+        ...state,
+        category: action.payload
       };
 
     default:

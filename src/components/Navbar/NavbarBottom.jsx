@@ -7,12 +7,20 @@ import {
 } from "react-icons/ai";
 import { VscLibrary } from "react-icons/vsc";
 import { FiHome } from "react-icons/fi";
+import { useTheme } from "../../context/themeContext";
 
 function NavbarBottom() {
   const location = useLocation();
+  const { theme } = useTheme();
 
   return (
-    <div className="py-1 px-5 font-poppins flex justify-between text-black-2 fixed bottom-0 z-20 w-full border-t border-white-1 bg-white flex lg:hidden">
+    <div
+      className={`py-1 px-5 font-poppins flex border-t justify-between ${
+        theme
+          ? "text-white-1 border-dark-bor bg-dark-nav"
+          : "text-black-2 border-white-1 bg-white-3"
+      } fixed bottom-0 z-20 w-full flex lg:hidden`}
+    >
       <Link
         className={`px-1 flex flex-col justify-center items-center ${location.pathname ===
           "/" && "text-primary-red"} `}

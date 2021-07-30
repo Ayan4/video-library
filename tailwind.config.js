@@ -6,12 +6,17 @@ module.exports = {
       colors: {
         "black-1": "#1f1f1f",
         "black-2": "#454545",
+        "dark-nav": "#202020",
+        "dark-bor": "#383838",
+        "dark-bgr": "#181818",
         "white-0": "#EDEDED",
         "white-1": "#E2E2E2",
         "white-2": "#c4c4c4",
+        "white-3": "#F4F4F4",
         "gray-1": "#737373",
-        // "primary-red": "#A51818",
+        "gray-2": "#9C9C9C",
         "primary-red": "#B32E04",
+        "secondary-red": "#CD6418",
         transparent: "transparent"
       },
       height: {
@@ -45,6 +50,9 @@ module.exports = {
     zIndex: {
       "-1": "-1",
       "-2": "-2"
+    },
+    boxShadow: {
+      bottom: "0px 4px 4px rgba(0, 0, 0, 0.12)"
     }
   },
   variants: {
