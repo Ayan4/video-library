@@ -11,7 +11,7 @@ function ShareModal({ openShareModal, setOpenShareModal, location }) {
   const [locationUrl, setLocationUrl] = useState("");
 
   useEffect(() => {
-    setLocationUrl(`https://neroview.netlify.app/${location}`);
+    setLocationUrl(`https:/neroview.netlify.app/${location}`);
   }, [location]);
 
   return (
@@ -36,7 +36,7 @@ function ShareModal({ openShareModal, setOpenShareModal, location }) {
                 <MdContentCopy className="text-2xl text-gray-1 mr-2.5" />
               </div>
               <p className="text-xs xs:text-sm text-blue-800 border-l border-white-2 p-2">
-                https://neroview.netlify.app/
+                https:/neroview.netlify.app/
                 <br />
                 {location}
               </p>
