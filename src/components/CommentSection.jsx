@@ -121,6 +121,7 @@ function CommentSection({ video, setPageLoading, setOpenLoginModal }) {
               }`}
               type="text"
               placeholder="Add a public comment"
+              autoComplete="off"
               {...register("comment", { required: true })}
             />
             <button>

@@ -6,7 +6,7 @@ import {
 import { RiPlayListAddFill } from "react-icons/ri";
 import { HiChevronDown } from "react-icons/hi";
 import VideoPlayer from "../components/VideoPlayer";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { usePlaylist } from "../context/playlistContext";
 import { useVideo } from "../context/videosContext";
@@ -25,7 +25,6 @@ import { useTheme } from "../context/themeContext";
 
 const VideoPage = () => {
   const { videoID } = useParams();
-  const navigate = useNavigate();
   const { user } = useAuth();
   const { state, playlistDispatch } = usePlaylist();
   const { videoState, allVideosLoading } = useVideo();

@@ -9,12 +9,19 @@ import { useMutation } from "react-query";
 import { createPlaylist, addToPlaylist } from "../../Api/videosApi";
 import { usePlaylist } from "../../context/playlistContext";
 import toast from "react-hot-toast";
+import { useRef } from "react";
 
 ReactModal.setAppElement("#root");
 
 function PlaylistModal({ openModal, setOpenModal, videoID }) {
   const { register, handleSubmit, reset } = useForm();
   const { state, playlistDispatch } = usePlaylist();
+
+  const playlistEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    playlistEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   const {
     isLoading: createPlaylistLoading,
@@ -26,6 +33,7 @@ function PlaylistModal({ openModal, setOpenModal, videoID }) {
         payload: data.newPlaylist
       });
       toast.success("Playlist created");
+      scrollToBottom();
     }
   });
 
@@ -110,6 +118,7 @@ function PlaylistModal({ openModal, setOpenModal, videoID }) {
               </button>
             );
           })}
+          <div ref={playlistEndRef}></div>
         </div>
 
         <div className="border-b border-white-1 flex justify-between items-center text-black-1 px-2 py-2">
@@ -130,6 +139,7 @@ function PlaylistModal({ openModal, setOpenModal, videoID }) {
             type="text"
             placeholder="Create a new playlist"
             {...register("name", { required: true })}
+            autoComplete="off"
           />
           <input
             value="Create"

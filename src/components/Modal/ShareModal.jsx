@@ -30,12 +30,16 @@ function ShareModal({ openShareModal, setOpenShareModal, location }) {
           <CopyToClipboard text={locationUrl}>
             <div
               onClick={() => toast.success("Copied to clipboard")}
-              className="flex items-center px-3 py-1 m-2.5 bg-gray-200 rounded text-left cursor-pointer hover:opacity-80"
+              className="flex items-center px-3 py-1 m-2.5 bg-gray-200 rounded cursor-pointer hover:opacity-80"
             >
               <div>
                 <MdContentCopy className="text-2xl text-gray-1 mr-2.5" />
               </div>
-              <p className="text-xs xs:text-sm text-blue-800 border-l border-white-2 p-2">{`https://vidjam.netlify.app${location}`}</p>
+              <p className="text-xs xs:text-sm text-blue-800 border-l border-white-2 p-2">
+                https://vidjam.netlify.app
+                <br />
+                {location}
+              </p>
             </div>
           </CopyToClipboard>
         </div>
