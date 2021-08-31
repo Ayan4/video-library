@@ -24,10 +24,6 @@ export const AuthProvider = ({ children }) => {
     return Promise.reject(error);
   });
 
-  // useEffect(() => {
-  //   console.log("auth useEffect ran");
-  // }, [user]);
-
   const {
     isLoading: signupLoading,
     isSuccess: isSignupSuccess,
@@ -48,7 +44,7 @@ export const AuthProvider = ({ children }) => {
     onSuccess: loginData => {
       setUser(loginData.user);
       localStorage?.setItem("user", JSON.stringify(loginData.user));
-      navigate("/");
+      navigate("/", { replace: true });
     }
   });
 

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const apiClient = axios.create({
-  baseURL: "https://video-library-backend-1.herokuapp.com"
+  baseURL: "https://video-library.ayanshukla.repl.co"
 });
 
 // User authentication
